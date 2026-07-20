@@ -1,7 +1,8 @@
-require([
-  "esri/WebMap"
-], function(WebMap){
+<script src="https://js.arcgis.com/4.30/"></script>
 
-  alert("WebMap loaded");
+<script>
+alert(typeof require);
 
-});
+document.getElementById("reportTitle").textContent =
+  "Parcel Map Export: " + new Date().toLocaleDateString();
+</script>
