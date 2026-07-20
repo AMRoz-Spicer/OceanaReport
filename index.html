@@ -1,12 +1,36 @@
-<div id="viewDiv" style="height:600px;"></div>
+<h1 id="reportTitle"></h1>
+
+<div id="viewDiv" style="
+  width:100%;
+  height:600px;
+  border:1px solid #999;
+"></div>
+
+<br>
+
+<div id="legendDiv" style="
+  width:600px;
+  border:1px solid #ccc;
+  padding:10px;
+  background:white;
+"></div>
 
 <script src="https://js.arcgis.com/4.30/"></script>
 
 <script>
+
+document.getElementById("reportTitle").textContent =
+  "Parcel Map Export: " + new Date().toLocaleDateString();
+
 require([
   "esri/WebMap",
-  "esri/views/MapView"
-], function(WebMap, MapView){
+  "esri/views/MapView",
+  "esri/widgets/Legend"
+], function(
+  WebMap,
+  MapView,
+  Legend
+){
 
   const webmap = new WebMap({
     portalItem: {
@@ -20,8 +44,16 @@ require([
   });
 
   view.when(function(){
-    alert("Map Loaded");
+
+    const legend = new Legend({
+      view: view,
+      container: "legendDiv"
+    });
+
+    alert("Map and Legend Loaded");
+
   });
 
 });
+
 </script>
