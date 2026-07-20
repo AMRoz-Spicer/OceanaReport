@@ -43,12 +43,18 @@ require([
     map: webmap
   });
 
-  view.when(function(){
+view.when(function(){
 
-    const legend = new Legend({
-      view: view,
-      container: "legendDiv"
-    });
+  const legend = new Legend({
+    view: view,
+    container: "legendDiv"
+  });
+
+  webmap.allLayers.forEach(function(layer){
+    console.log(layer.title);
+  });
+
+});
 
     alert("Map and Legend Loaded");
 
