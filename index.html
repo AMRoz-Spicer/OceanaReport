@@ -10,7 +10,13 @@ require([
   "esri/WebMap"
 ], function(WebMap){
 
-  alert("Inside require");
+  const webmap = new WebMap({
+    portalItem: {
+      id: "ca12623310a1476eb369b7cfebfbdcb9"
+    }
+  });
+
+  alert("WebMap object created");
 
 });
 
