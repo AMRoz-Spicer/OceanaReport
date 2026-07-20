@@ -16,7 +16,13 @@ require([
     }
   });
 
-  alert("WebMap object created");
+  webmap.load()
+    .then(function(){
+      alert("WebMap Loaded");
+    })
+    .catch(function(error){
+      alert(error.message);
+    });
 
 });
 
