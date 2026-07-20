@@ -59,10 +59,12 @@ require([
   "esri/WebMap",
   "esri/views/MapView",
   "esri/widgets/Legend"
+  "esri/layers/FeatureLayer"
 ], function(
   WebMap,
   MapView,
-  Legend
+  Legend,
+  FeatureLayer
 ){
 
   const webmap = new WebMap({
@@ -79,27 +81,58 @@ require([
     }
   });
 
-  view.when(function(){
+view.when(function(){
 
-    new Legend({
-      view: view,
-      container: "legendDiv"
+  new Legend({
+    view: view,
+    container: "legendDiv"
+  });
+
+  const infoLayer = webmap.allLayers.find(
+    layer => layer.title === "Oceana Parcels Information"
+  );
+
+  infoLayer.queryFeatures({
+    where: "1=1",
+    outFields: [
+      "Parcel_Number",
+      "Prop_Street",
+      "Acres",
+      "Full_Name",
+      "Name_Extra",
+      "Owner_Addres",
+      "Owner_City",
+      "Owner_State",
+      "Owner_ZIP"
+    ],
+    returnGeometry: false
+  }).then(function(result){
+
+    const tbody = document.getElementById("parcelTableBody");
+
+    tbody.innerHTML = "";
+
+    result.features.forEach(function(feature){
+
+      const a = feature.attributes;
+
+      const row = `
+        <tr>
+          <td>${a.Parcel_Number || ""}</td>
+          <td>${a.Prop_Street || ""}</td>
+          <td>${a.Acres || ""}</td>
+          <td>${a.Full_Name || ""}</td>
+          <td>${a.Name_Extra || ""}</td>
+          <td>
+            ${a.Owner_Addres || ""}<br>
+            ${a.Owner_City || ""} ${a.Owner_State || ""} ${a.Owner_ZIP || ""}
+          </td>
+        </tr>
+      `;
+
+      tbody.insertAdjacentHTML("beforeend", row);
+
     });
-
-    // TEMP TEST ROW
-    document.getElementById("parcelTableBody").innerHTML = `
-      <tr>
-        <td>123-45-678-000</td>
-        <td>123 Main St</td>
-        <td>40</td>
-        <td>John Smith</td>
-        <td>Trust</td>
-        <td>
-          123 Main St<br>
-          Saginaw MI 48603
-        </td>
-      </tr>
-    `;
 
   });
 
