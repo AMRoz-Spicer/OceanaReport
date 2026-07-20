@@ -19,6 +19,7 @@
 
 <script>
 
+// Title with today's date
 document.getElementById("reportTitle").textContent =
   "Parcel Map Export: " + new Date().toLocaleDateString();
 
@@ -43,20 +44,12 @@ require([
     map: webmap
   });
 
-view.when(function(){
+  view.when(function(){
 
-  const legend = new Legend({
-    view: view,
-    container: "legendDiv"
-  });
-
-  webmap.allLayers.forEach(function(layer){
-    alert(layer.title);
-  });
-
-});
-
-    alert("Map and Legend Loaded");
+    const legend = new Legend({
+      view: view,
+      container: "legendDiv"
+    });
 
   });
 
