@@ -1,8 +1,19 @@
-<script src="https://js.arcgis.com/4.30/"></script>
-
 <script>
-alert(typeof require);
+require([
+  "esri/WebMap"
+], function(WebMap){
 
-document.getElementById("reportTitle").textContent =
-  "Parcel Map Export: " + new Date().toLocaleDateString();
+  const webmap = new WebMap({
+    portalItem: {
+      id: "ca12623310a1476eb369b7cfebfbdcb9"
+    }
+  });
+
+  webmap.load().then(function(){
+    alert("Webmap loaded successfully");
+  }).catch(function(error){
+    alert("WEBMAP ERROR: " + error);
+  });
+
+});
 </script>
