@@ -73,7 +73,10 @@ require([
 
   const view = new MapView({
     container: "viewDiv",
-    map: webmap
+    map: webmap,
+    ui: {
+      components: []
+    }
   });
 
   view.when(function(){
