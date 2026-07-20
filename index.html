@@ -6,7 +6,18 @@
   border:1px solid #999;
 "></div>
 
-<div id="legendDiv"></div>
+#legendDiv {
+  width: 600px;
+  max-width: none;
+  border: 1px solid #ccc;
+  padding: 10px;
+  background: #fff;
+}
+
+#legendDiv * {
+  overflow-wrap: break-word;
+  word-break: break-word;
+}
 
 <script src="https://js.arcgis.com/4.30/"></script>
 
@@ -38,12 +49,29 @@ require([
     map: webmap
   });
 
-  view.when(function(){
+view.when(function(){
 
-    new Legend({
-      view: view,
-      container: "legendDiv"
-    });
+  // Hide mailing list from legend
+  const mailingLayer = webmap.allLayers.find(
+    layer => layer.title === "Oceana Parcels - Mailing List"
+  );
+
+  if (mailingLayer) {
+    mailingLayer.legendEnabled = false;
+  }
+
+  new Legend({
+    view: view,
+    container: "legendDiv",
+    respectLayerVisibility: true
+  });
+
+  new ScaleBar({
+    view: view,
+    unit: "imperial"
+  });
+
+});
 
     new ScaleBar({
       view: view,
