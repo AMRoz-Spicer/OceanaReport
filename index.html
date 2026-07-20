@@ -1,14 +1,12 @@
-<body>
-
-<h1 id="reportTitle">Parcel Map Export:</h1>
+<div id="viewDiv" style="height:600px;"></div>
 
 <script src="https://js.arcgis.com/4.30/"></script>
 
 <script>
-
 require([
-  "esri/WebMap"
-], function(WebMap){
+  "esri/WebMap",
+  "esri/views/MapView"
+], function(WebMap, MapView){
 
   const webmap = new WebMap({
     portalItem: {
@@ -16,16 +14,14 @@ require([
     }
   });
 
-  webmap.load()
-    .then(function(){
-      alert("WebMap Loaded");
-    })
-    .catch(function(error){
-      alert(error.message);
-    });
+  const view = new MapView({
+    container: "viewDiv",
+    map: webmap
+  });
+
+  view.when(function(){
+    alert("Map Loaded");
+  });
 
 });
-
 </script>
-
-</body>
